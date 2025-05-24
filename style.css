@@ -1,0 +1,87 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #00274d, #d4af37, #800000);
+  background-size: 300% 300%;
+  animation: gradientBG 15s ease infinite;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  100% {background-position: 100% 50%;}
+}
+
+header {
+  text-align: center;
+  padding: 2rem;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.amigo {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1rem;
+  transition: transform 0.3s ease, background 0.3s ease;
+  border: 2px solid #ffffff33;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+}
+
+.amigo:hover {
+  transform: translateY(-5px) scale(1.03);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #ffffff88;
+}
+
+.amigo img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid white;
+  margin-bottom: 0.5rem;
+  background-color: #000;
+  box-shadow: 0 0 8px rgba(0,0,0,0.4);
+}
+
+h2 {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+.clips-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(45deg, #ff0000, #cc0000);
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
+}
+
+.clips-button:hover {
+  background: linear-gradient(45deg, #cc0000, #990000);
+  transform: scale(1.05);
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Clips de Juegos - Grupo DOPE</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: #00274d;
+      color: white;
+    }
+
+    .clips-container {
+      margin-top: 40px;
+      padding: 20px;
+      border: 2px solid white;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    .clips-container h2 {
+      color: gold;
+    }
+
+    .clip-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .clip-item {
+      width: 100%;
+      background-color: black;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    button, input {
+      margin-top: 10px;
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: gold;
+      border: none;
+      color: black;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: darkgoldenrod;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Clips de Juegos</h1>
+    <a href="index.html" class="clips-button">⬅ Volver al inicio</a>
+  </header>
+
+  <div class="clips-container">
+    <h2>Sube tu Clip de Juego</h2>
+    <input type="file" id="clipUploader" accept="video/*">
+    <button id="subirClip">Subir Clip</button>
+    <div class="clip-list" id="clips">
+      <!-- Los clips aparecerán aquí -->
+    </div>
+  </div>
+
+  <script>
+    const clipUploader = document.getElementById("clipUploader");
+    const subirClip = document.getElementById("subirClip");
+    const clipsContainer = document.getElementById("clips");
+
+    // Cargar clips guardados
+    const clipsGuardados = JSON.parse(localStorage.getItem("clips")) || [];
+
+    function mostrarClips() {
+      clipsContainer.innerHTML = "";
+      clipsGuardados.forEach((clipURL) => {
+        const clipElement = document.createElement("div");
+        clipElement.classList.add("clip-item");
+        clipElement.innerHTML = `<video controls src="${clipURL}"></video>`;
+        clipsContainer.appendChild(clipElement);
+      });
+    }
+
+    subirClip.addEventListener("click", () => {
+      const file = clipUploader.files[0];
+
+      if (file) {
+        const clipURL = URL.createObjectURL(file);
+        clipsGuardados.push(clipURL);
+        localStorage.setItem("clips", JSON.stringify(clipsGuardados));
+        mostrarClips();
+      } else {
+        alert("Por favor, selecciona un video antes de subirlo.");
+      }
+    });
+
+    mostrarClips();
+  </script>
+
+</body>
+</html>

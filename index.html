@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Grupo DOPE</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .ruleta-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    canvas {
+      border: 4px solid white;
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    }
+
+    button, input {
+      margin-top: 10px;
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: gold;
+      border: none;
+      color: black;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: darkgoldenrod;
+    }
+
+    .slider-container {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="img/logo.png" alt="Logo DOPE" class="logo">
+    <h1>Bienvenidos al grupo DOPE</h1>
+    <!-- Enlace a la página de clips -->
+    <p><a href="clips.html">Ver y subir clips 🎥</a></p>
+  </header>
+
+  <main class="grid">
+    <section class="amigo"><a href="perfiles/santy.html"><img src="img/santy.jpg" alt="Santy"><h2>Santy</h2></a></section>
+    <section class="amigo"><a href="perfiles/vietnam.html"><img src="img/vietnam.jpg" alt="Vietnam"><h2>Vietnam</h2></a></section>
+    <section class="amigo"><a href="perfiles/pichichi.html"><img src="img/pichichi.jpg" alt="Pichichi"><h2>Pichichi</h2></a></section>
+    <section class="amigo"><a href="perfiles/fede.html"><img src="img/fede.jpg" alt="Fede"><h2>Fede</h2></a></section>
+    <section class="amigo"><a href="perfiles/anubis.html"><img src="img/anubis.jpg" alt="Anubis"><h2>Anubis</h2></a></section>
+    <section class="amigo"><a href="perfiles/chapi.html"><img src="img/chapi.jpg" alt="Chapi"><h2>Chapi</h2></a></section>
+    <section class="amigo"><a href="perfiles/sant1.html"><img src="img/sant1.jpg" alt="Sant1"><h2>Sant1</h2></a></section>
+    <section class="amigo"><a href="perfiles/marcefrixx.html"><img src="img/marcefrixx.jpg" alt="Marcefrixx"><h2>Marcefrixx</h2></a></section>
+  </main>
+
+  <!-- Sección de la ruleta sencilla -->
+  <div class="ruleta-container">
+    <canvas id="ruleta" width="300" height="300"></canvas>
+    <div class="slider-container">
+      <label for="cantidadGanadores">Ganadores:</label>
+      <input id="cantidadGanadores" type="number" value="1" min="1" max="8">
+    </div>
+    <button id="girar">Girar</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("ruleta");
+    const ctx = canvas.getContext("2d");
+    const boton = document.getElementById("girar");
+    const inputCantidad = document.getElementById("cantidadGanadores");
+
+    // Lista de nombres
+    const nombres = ["Santy", "Vietnam", "Pichichi", "Fede", "Anubis", "Chapi", "Sant1", "Marcefrixx"];
+    const numOpciones = nombres.length;
+    const angulo = (2 * Math.PI) / numOpciones;
+    let anguloActual = 0;
+
+    function dibujarRuleta() {
+      for (let i = 0; i < numOpciones; i++) {
+        ctx.beginPath();
+        ctx.moveTo(150, 150);
+        ctx.arc(150, 150, 140, angulo * i, angulo * (i + 1));
+        ctx.closePath();
+        ctx.fillStyle = i % 2 === 0 ? "#800000" : "#003366";
+        ctx.fill();
+        ctx.fillStyle = "white";
+        ctx.font = "14px Arial";
+        ctx.fillText(nombres[i], 120 + Math.cos(angulo * i + angulo / 2) * 100, 150 + Math.sin(angulo * i + angulo / 2) * 100);
+      }
+    }
+
+    function girarRuleta() {
+      let cantidadGanadores = parseInt(inputCantidad.value);
+      let ganadores = [];
+
+      while (ganadores.length < cantidadGanadores) {
+        let seleccionado = nombres[Math.floor(Math.random() * nombres.length)];
+        if (!ganadores.includes(seleccionado)) {
+          ganadores.push(seleccionado);
+        }
+      }
+
+      alert("¡Los ganadores son: " + ganadores.join(", ") + "!");
+    }
+
+    boton.addEventListener("click", girarRuleta);
+    dibujarRuleta();
+  </script>
+
+</body>
+</html>
+
